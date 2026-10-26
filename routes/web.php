@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,9 +31,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('categories', CategoryController::class);
-    Route::get('/products', function () {
-        return 'Halaman Master Produk';
-    })->name('products.index');
+    Route::resource('products', ProductController::class);
     Route::get('/report/sales', function () {
         return 'Halaman Laporan Penjualan';
     })->name('report.sales');
