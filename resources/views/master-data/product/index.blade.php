@@ -25,12 +25,15 @@
                             <th class="px-4 py-2 text-left text-xs font-medium text-gray-500">Kategori</th>
                             <th class="px-4 py-2 text-right text-xs font-medium text-gray-500">Harga</th>
                             <th class="px-4 py-2 text-center text-xs font-medium text-gray-500">Stok</th>
+                            {{-- kolom nilai stok --}}
+                            <th class="px-4 py-2 text-right text-xs font-medium text-gray-500">Nilai Stok</th>
                             <th class="px-4 py-2 text-center text-xs font-medium text-gray-500">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
                         @forelse ($products as $product)
-                            <tr class="@if ($product->stock == 0) bg-red-50 @elseif ($product->stock < 10) bg-yellow-50 @endif">
+                            {{-- ambang stok menipis dibaca dari config/pos.php --}}
+                            <tr class="@if ($product->stock == 0) bg-red-50 @elseif ($product->stock < config('pos.stok_menipis')) bg-yellow-50 @endif">
                                 <td class="px-4 py-2 text-sm">{{ $product->code }}</td>
                                 <td class="px-4 py-2 text-sm">{{ $product->name }}</td>
                                 <td class="px-4 py-2 text-sm">{{ $product->category->name }}</td>
@@ -41,17 +44,26 @@
                                     {{ $product->stock }}
                                     @if ($product->stock == 0)
                                         <span class="text-red-600 text-xs block">Habis</span>
-                                    @elseif ($product->stock < 10)
+                                    @elseif ($product->stock < config('pos.stok_menipis'))
                                         <span class="text-yellow-600 text-xs block">Menipis</span>
                                     @endif
                                 </td>
+                                <td class="px-4 py-2 text-sm text-right">
+                                    Rp{{ number_format($product->stock * $product->price, 0, ',', '.') }}
+                                </td>
                                 <td class="px-4 py-2 text-sm text-center space-x-2">
                                     <a href="{{ route('products.edit', $product) }}" class="text-indigo-600">Ubah</a>
+                                    <form action="{{ route('products.destroy', $product) }}" method="POST"
+                                          onsubmit="return confirm('Yakin ingin menghapus produk {{ $product->name }}?')" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-600">Hapus</button>
+                                    </form>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="px-4 py-6 text-center text-gray-500">
+                                <td colspan="7" class="px-4 py-6 text-center text-gray-500">
                                     Belum ada data produk.
                                 </td>
                             </tr>

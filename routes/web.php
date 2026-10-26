@@ -27,7 +27,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware('auth')
     ->name('dashboard');
 
-// Menu navigasi untuk role admin
+// menu navigasi untuk role admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('categories', CategoryController::class);
@@ -37,14 +37,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     })->name('report.sales');
 });
 
-// Menu transaksi POS umum
+// menu transaksi pos umum
 Route::middleware('auth')->group(function () {
     Route::get('/pos', function () {
         return 'Halaman Transaksi Kasir (POS)';
     })->name('pos.index');
 });
 
-// Menu khusus kasir: Riwayat Transaksi Saya (Soal 2)
+// menu khusus kasir: riwayat transaksi saya (soal 2)
 Route::middleware(['auth', 'role:kasir'])->group(function () {
     Route::get('/pos/history', function () {
         return view('pos.history');

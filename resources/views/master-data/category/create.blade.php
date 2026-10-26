@@ -11,7 +11,7 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Nama Kategori</label>
                         <input type="text" name="name" value="{{ old('name') }}"
-                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                         @error('name')
                             <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                         @enderror
@@ -19,7 +19,7 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Deskripsi</label>
                         <textarea name="description" rows="3"
-                                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{ old('description') }}</textarea>
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{ old('description') }}</textarea>
                     </div>
                     <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md">
                         Simpan

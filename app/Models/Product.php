@@ -30,19 +30,8 @@ class Product extends Model
         return $this->hasMany(TransactionDetail::class);
     }
 
-    /**
-     * Accessor untuk memformat harga ke dalam mata uang Rupiah.
-     * Dapat diakses melalui $product->price_rupiah atau $product->harga_rupiah.
-     * Contoh keluaran: "Rp 15.000"
-     */
+    // accessor untuk memformat harga ke rupiah, diakses lewat $product->price_rupiah
     protected function priceRupiah(): Attribute
-    {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => 'Rp ' . number_format($attributes['price'] ?? 0, 0, ',', '.'),
-        );
-    }
-
-    protected function hargaRupiah(): Attribute
     {
         return Attribute::make(
             get: fn (mixed $value, array $attributes) => 'Rp ' . number_format($attributes['price'] ?? 0, 0, ',', '.'),

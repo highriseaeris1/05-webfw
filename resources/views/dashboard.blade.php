@@ -20,7 +20,7 @@
                 </div>
             </x-card>
 
-            {{-- Kartu Monitoring Status Stok Produk menggunakan x-badge --}}
+            {{-- kartu monitoring status stok produk memakai komponen x-badge --}}
             <x-card>
                 <div class="flex items-center justify-between mb-4">
                     <div>

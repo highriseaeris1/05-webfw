@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::latest()->paginate(10);
+        // jumlah produk dihitung lewat withCount untuk tabel kategori
+        $categories = Category::withCount('products')->latest()->paginate(10);
         return view('master-data.category.index', compact('categories'));
     }
 
@@ -27,14 +29,9 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:100|unique:categories,name',
-            'description' => 'nullable|string|max:255',
-        ]);
-
-        Category::create($validated);
+        Category::create($request->validated());
 
         return redirect()->route('categories.index')->with('success', 'Kategori berhasil ditambahkan.');
     }

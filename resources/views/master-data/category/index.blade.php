@@ -27,6 +27,8 @@
                                 <th class="px-6 py-3 text-left font-medium text-gray-700">No</th>
                                 <th class="px-6 py-3 text-left font-medium text-gray-700">Nama Kategori</th>
                                 <th class="px-6 py-3 text-left font-medium text-gray-700">Deskripsi</th>
+                                {{-- jumlah produk dari withCount --}}
+                                <th class="px-6 py-3 text-center font-medium text-gray-700">Jumlah Produk</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 bg-white">
@@ -35,10 +37,11 @@
                                     <td class="px-6 py-3 text-gray-600">{{ $index + 1 }}</td>
                                     <td class="px-6 py-3 font-medium text-gray-900">{{ $category->name }}</td>
                                     <td class="px-6 py-3 text-gray-500">{{ $category->description ?? '-' }}</td>
+                                    <td class="px-6 py-3 text-center text-gray-600">{{ $category->products_count }}</td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="3" class="px-6 py-6 text-center text-gray-500">Belum ada data kategori.</td>
+                                    <td colspan="4" class="px-6 py-6 text-center text-gray-500">Belum ada data kategori.</td>
                                 </tr>
                             @endforelse
                         </tbody>
